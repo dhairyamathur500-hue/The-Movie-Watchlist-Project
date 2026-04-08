@@ -1,26 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Movie Watchlist</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Watchlist - MOVIE DEKHO</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1 style="font-family: 'Courier New', Courier, monospace;">MOVIE DEKHO</h1>
+<header class="navbar">
+    <div class="left">
+        <button class="icon-btn tooltip-btn">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <span class="brand-logo" style="cursor: pointer;" onclick="document.getElementById('back-to-main-btn')?.click() || window.location.reload()">MOVIE DEKHO</span>
+    </div>
+    
+    <div class="center">
+        <form id="searchForm" class="search-form">
+            <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off">
+            <button type="submit" id="search-btn" class="icon-btn search-submit-btn">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </form>
+    </div>
 
-    <input type="text" id="searchInput" placeholder="Search movies...">
-    <button id="search-btn">Search</button>
+    <div class="navbar-right">
+        <div class="nav-links ">
+            <a href="#">Discover</a>
+            <a href="#" class="active-link">Watchlist</a>
+            <a href="#">Profile</a>
+        </div>
+        <div class="profile-pic">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk-19r4QRBuiSpIrAWKCFR6gFxPv6tyG4nvgW6oJ7d9saHnn7y0oY3ZRJWZE-wLzNKw5iVa-bHXml_KlImch5VryUVcMPqI9A9rCtDeypsb_EDdq4exbaiZPw0QTEKPdPVXFrhNKly8DhHotlL6YNehUbIkxEpKz24Q5vLF_Zm1IBc70iwo8k5eHu2NgdJU60v9xWrrHIswg7PoPBxQhfXDoZ6v4E7sKQNCebWVtT1NCMK46WPK_stVt_-e_xClbYZqZc3Sch0CvU" alt="Profile">
+          </div>
+    </div>
+</header>
 
-    <div id="movies"></div>
+<main class="container" id="main-content">
+    
+    <header class="page-header">
+        <p class="subtitle">Curated Collection</p>
+        <h1 class="page-title">My Watchlist</h1>
+    </header>
 
-    <h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">My Watchlist</h2>
-    <button onclick="randomMovie()" style="font-family: Georgia, 'Times New Roman', Times, serif;">Random Movie Night</button>
+    
+    <section class="searchSection" id="search-results-section" style="display: none;">
+        <div class="section-header">
+            <h2 class="section-title">Search Results</h2>
+            <button class="icon-btn" id="closeBtn">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="search-display" class="movie-grid"></div>
+    </section>
 
-    <button onclick="randomMovie()" style="font-family: Georgia, 'Times New Roman', Times, serif;">Newly launched</button>
+    
+    <section class="hero-section">
+        <div class="section-header">
+            <h2 class="section-title">Random Movie Night</h2>
+            <div class="divider hidden-mobile"></div>
+            <button id="randomBtn" class="action-btn outline-btn">
+                <span class="material-symbols-outlined">shuffle</span>
+                Pick New Random
+            </button>
+        </div>
 
-    <button onclick="randomMovie()" style="font-family: Georgia, 'Times New Roman', Times, serif;">Spicy twist</button>
-    <div id="watchlist"></div>
-    <div id="display"></div>
-    <script src="app.js"></script>
+        <div class="hero-card" id="hero-card">
+            
+        </div>
+    </section>
+
+    
+    <section class="watchlist-section">
+        <div class="section-header">
+            <h2 class="section-title" id="watchlist-count-title">Your Saved Titles (0)</h2>
+            <div class="view-controls">
+                <button class="icon-btn active-view"><span class="material-symbols-outlined">grid_view</span></button>
+                <button class="icon-btn"><span class="material-symbols-outlined">format_list_bulleted</span></button>
+            </div>
+        </div>
+        
+        <div class="movie-grid" id="watchlist-grid">
+            
+        </div>
+    </section>
+</main>
+
+<main class="container" id="details-section" style="display: none;">
+    <button id="back-to-main-btn" class="action-btn outline-btn" style="margin-bottom: 2rem;">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Back to Home
+    </button>
+    <div id="movie-details-content">
+       
+    </div>
+</main>
+
+<nav class="bottom-nav">
+    <a href="#" class="nav-item tooltip-btn" id="mobile-search-trigger">
+        <span class="material-symbols-outlined">search</span>
+        <span class="nav-label">Search</span>
+    </a>
+    <a href="#" class="nav-item active-nav-item">
+        <span class="material-symbols-outlined nav-icon-filled">bookmarks</span>
+        <span class="nav-label">Watchlist</span>
+    </a>
+    <a href="#" class="nav-item">
+        <span class="material-symbols-outlined">person</span>
+        <span class="nav-label">Profile</span>
+    </a>
+</nav>
+
+<div id="mobile-search-overlay" class="mobile-search-overlay">
+    <div class="mobile-search-header">
+        <form id="mobile-search-form" class="search-form mobile-version">
+            <input type="text" id="mobileSearchInput" placeholder="Search movies..." autocomplete="off">
+            <button type="submit" class="icon-btn search-submit-btn">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </form>
+        <button id="close-mobile-search" class="icon-btn"><span class="material-symbols-outlined">close</span></button>
+    </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
